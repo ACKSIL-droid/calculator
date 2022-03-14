@@ -1,0 +1,143 @@
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+  font-family: "Eurostile Extended", monospace;
+}
+
+html {
+  background-color: #3e414a;
+}
+
+h4 {
+  margin: 4px;
+}
+
+#container {
+  display: flex;
+  height: 96vh;
+  align-items: center;
+  justify-content: center;
+}
+
+#calculator {
+  display: flex;
+  flex-direction: column;
+  height: 720px;
+  width: 400px;
+  padding: 16px;
+  padding-bottom: 0;
+  border-radius: 10% 10% 100% 100% / 10% 10% 15% 15%;
+  background-color: #e6e6eb;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+#header {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 320px;
+}
+
+#logo {
+  height: 120px;
+  color: #3e414a;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin-bottom: 16px;
+}
+
+#tenDigits {
+  color: #3e414a;
+  align-content: center;
+  align-self: end;
+}
+
+#digits {
+  border-radius: 6px;
+  background-color: #3e414a;
+  color: #e6e6eb;
+  padding: 0 4px;
+  font-size: 0.6rem;
+}
+
+#screen {
+  width: 380px;
+  height: 120px;
+  background-color: #9ba894;
+  margin-bottom: 12px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 30px 60px -12px inset,
+    rgba(0, 0, 0, 0.3) 0px 18px 36px -18px inset,
+    rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
+}
+
+#keypad {
+  display: flex;
+  flex-flow: column wrap;
+  align-content: center;
+  height: 360px;
+  padding: 4px;
+}
+
+.key {
+  box-sizing: border-box;
+  width: 62px;
+  height: 62px;
+  margin: 4px;
+  border-radius: 16px 16px 28px 28px;
+  cursor: pointer;
+  color: #cfd1d8;
+  font-size: 1.6rem;
+  padding-top: 16px;
+  box-shadow: rgba(0, 0, 0, 0.17) 0px -23px 25px 0px inset,
+    rgba(0, 0, 0, 0.15) 0px -36px 30px 0px inset,
+    rgba(0, 0, 0, 0.1) 0px -79px 40px 0px inset, rgba(0, 0, 0, 0.06) 0px 2px 1px,
+    rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
+}
+
+.operator {
+  background-color: #5c596d;
+}
+
+.number {
+  background-color: #898995;
+}
+
+.memfunction {
+  background-color: #5c596d;
+  font-size: 1rem;
+  padding-top: 20px;
+}
+
+#clear,
+#allClear {
+  background-color: #bc7b93;
+}
+
+#decimal {
+  background-color: #898995;
+}
+
+#plus {
+  height: 132px;
+}
+
+#bottombar {
+  text-align: center;
+}
+
+#gitLink {
+  text-decoration: none;
+  color: #e6e6eb;
+}
+
+#gitLink:hover {
+  text-decoration: underline;
+}
