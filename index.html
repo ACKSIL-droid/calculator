@@ -6,10 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Calculator</title>
     <link rel="stylesheet" href="./style.css" />
+    <script src="./script.js" defer></script>
     <style>
       @font-face {
         font-family: Eurostile Extended;
         src: url(./fonts/eurostile_extended_black.ttf);
+      }
+      @font-face {
+        font-family: DS Digital;
+        src: url(./fonts/DS-DIGI.TTF);
       } ;
     </style>
   </head>
@@ -24,7 +29,10 @@
               <h4>VL-9000LC</h4>
             </div>
           </div>
-          <div id="screen"></div>
+          <div id="screen">
+            <div id="status">M+</div>
+            <div id="display"></div>
+          </div>
           <div id="tenDigits">10 <span id="digits">DIGITS</span></div>
         </div>
         <div id="keypad">
@@ -50,8 +58,8 @@
           <div id="equals" class="key operator">=</div>
           <div id="divide" class="key operator">÷</div>
           <div id="multiply" class="key operator">×</div>
-          <div id="minus" class="key operator">−</div>
-          <div id="plus" class="key operator">+</div>
+          <div id="subtract" class="key operator">−</div>
+          <div id="add" class="key operator">+</div>
         </div>
       </div>
     </div>

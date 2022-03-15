@@ -68,6 +68,7 @@ h4 {
 }
 
 #screen {
+  display: flex;
   width: 380px;
   height: 120px;
   background-color: #9ba894;
@@ -77,12 +78,31 @@ h4 {
     rgba(17, 17, 26, 0.05) 0px 1px 0px, rgba(17, 17, 26, 0.1) 0px 0px 8px;
 }
 
+#screen div {
+  font-family: DS Digital, monospace;
+}
+
 #keypad {
   display: flex;
   flex-flow: column wrap;
   align-content: center;
   height: 360px;
   padding: 4px;
+}
+
+#status {
+  font-size: 2rem;
+  padding: 16px 8px;
+  width: 32px;
+  color: #121310af;
+}
+
+#display {
+  font-size: 3.8rem;
+  text-align: right;
+  padding: 48px 0;
+  width: 320px;
+  color: #121310af;
 }
 
 .key {
@@ -105,6 +125,10 @@ h4 {
 
 .key:hover {
   transform: scale(1.05);
+}
+
+.key:active {
+  transform: scale(0.95);
 }
 
 .operator {
@@ -130,7 +154,7 @@ h4 {
   background-color: #898995;
 }
 
-#plus {
+#add {
   height: 132px;
 }
 
