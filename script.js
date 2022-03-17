@@ -81,7 +81,7 @@ function partialClear() {
 
 function limitInput(operand, key) {
   if (operand.length < 10) {
-    if (operand == "0") {
+    if (operand === "0") {
       operand = key;
     } else {
       operand += key;
@@ -113,25 +113,21 @@ function getResult(operation, operand1, operand2) {
       result = operand1 * (operand2 / 100);
       break;
   }
-  return constrainDisplayLength(result);
+  if (result == "error") {
+    return "MATH ERR.";
+  } else {
+    return constrainDisplayLength(result);
+  }
 }
 
 function constrainDisplayLength(result) {
   let output = result;
   let resultStr = `${result}`;
-  if (result == "error") {
-    return "MATH ERR.";
-  }
-  if (resultStr.length > 11) {
+  if (resultStr.length > 10) {
     if (result > 9999999999) {
       output = result.toExponential(2);
     } else {
-      if (resultStr.includes(".")) {
-        let number = resultStr.split(".");
-        let integralLength = number[0].length;
-        let places = 10 - integralLength;
-        output = result.toFixed(places);
-      }
+      output = result.toPrecision(9);
     }
   }
   return output;
