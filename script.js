@@ -123,7 +123,7 @@ function getResult(operation, operand1, operand2) {
 }
 
 function constrainDisplayLength(result) {
-  let output = result;
+  let output;
   let resultStr = `${result}`;
   if (resultStr.length > 10) {
     if (result > 9999999999) {
