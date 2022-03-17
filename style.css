@@ -11,6 +11,7 @@ html {
 
 h4 {
   margin: 4px;
+  letter-spacing: 0.05em;
 }
 
 #container {
@@ -102,7 +103,7 @@ h4 {
   text-align: right;
   padding: 48px 0;
   width: 320px;
-  color: #121310af;
+  color: #1213109f;
 }
 
 .key {
@@ -131,7 +132,8 @@ h4 {
   transform: scale(0.95);
 }
 
-.operator {
+.operator,
+#equals {
   background-color: #5c596d;
 }
 

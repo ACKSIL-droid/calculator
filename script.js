@@ -5,11 +5,10 @@ const clear = document.getElementById("clear");
 const allClear = document.getElementById("allClear");
 const equals = document.getElementById("equals");
 
-let operand1 = "0";
-let operand2 = "0";
+let operand1 = "";
+let operand2 = "";
 let firstCalculation = true;
 let operation = "";
-let output = "0";
 
 display.textContent = "";
 
@@ -18,11 +17,11 @@ numberKeys.forEach((key) => {
     let keyNumber = key.id;
     let currentNumber = "0";
     if (firstCalculation) {
-      currentNumber = setInput(operand1, keyNumber);
+      currentNumber = limitInput(operand1, keyNumber);
       operand1 = currentNumber;
       display.textContent = operand1;
     } else {
-      currentNumber = setInput(operand2, keyNumber);
+      currentNumber = limitInput(operand2, keyNumber);
       operand2 = currentNumber;
       display.textContent = operand2;
     }
@@ -32,7 +31,7 @@ numberKeys.forEach((key) => {
 operatorKeys.forEach((key) => {
   key.addEventListener("click", () => {
     let result = "";
-    if (firstCalculation) {
+    if (firstCalculation || operand2 == "") {
       result = operand1;
       firstCalculation = false;
       operation = key.id;
@@ -46,12 +45,33 @@ operatorKeys.forEach((key) => {
   });
 });
 
-clear.addEventListener("click", () => {
-  output = "";
-  display.textContent = `${output}`;
+equals.addEventListener("click", () => {
+  let result = "";
+  if (firstCalculation || operand2 == "") {
+    result = operand1;
+  } else {
+    result = getResult(operation, operand1, operand2);
+    operand1 = result;
+    operand2 = "";
+    firstCalculation = true;
+  }
+  display.textContent = result;
 });
 
-function setInput(operand, key) {
+clear.addEventListener("click", () => {
+  operand2 = "";
+  display.textContent = "";
+});
+
+allClear.addEventListener("click", () => {
+  operand1 = "";
+  operand2 = "";
+  firstCalculation = true;
+  operation = "";
+  display.textContent = "";
+});
+
+function limitInput(operand, key) {
   if (operand.length < 10) {
     if (operand == "0") {
       operand = key;
@@ -81,5 +101,23 @@ function getResult(operation, operand1, operand2) {
       result = operand1 * (operand2 / 100);
       break;
   }
-  return result;
+  return constrainDisplayLength(result);
+}
+
+function constrainDisplayLength(result) {
+  let output = result;
+  let resultStr = `${result}`;
+  if (resultStr.length > 11) {
+    if (result > 9999999999) {
+      output = result.toExponential(2);
+    } else {
+      if (resultStr.includes(".")) {
+        let number = resultStr.split(".");
+        let integralLength = number[0].length;
+        let places = 10 - integralLength;
+        output = result.toFixed(places);
+      }
+    }
+  }
+  return output;
 }
