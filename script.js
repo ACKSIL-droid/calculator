@@ -36,7 +36,7 @@ operatorKeys.forEach((key) => {
       firstCalculation = false;
       operation = key.id;
     } else {
-      result = getResult(operation, operand1, operand2);
+      result = `${getResult(operation, operand1, operand2)}`;
       operation = key.id;
       operand1 = result;
       operand2 = "";
@@ -50,7 +50,7 @@ equals.addEventListener("click", () => {
   if (firstCalculation || operand2 == "") {
     result = operand1;
   } else {
-    result = getResult(operation, operand1, operand2);
+    result = `${getResult(operation, operand1, operand2)}`;
     operand1 = result;
     operand2 = "";
     firstCalculation = true;
@@ -58,18 +58,26 @@ equals.addEventListener("click", () => {
   display.textContent = result;
 });
 
-clear.addEventListener("click", () => {
-  operand2 = "";
-  display.textContent = "";
+allClear.addEventListener("click", () => {
+  fullClear();
 });
 
-allClear.addEventListener("click", () => {
+clear.addEventListener("click", () => {
+  partialClear();
+});
+
+function fullClear() {
   operand1 = "";
   operand2 = "";
   firstCalculation = true;
   operation = "";
   display.textContent = "";
-});
+}
+
+function partialClear() {
+  operand2 = "";
+  display.textContent = "";
+}
 
 function limitInput(operand, key) {
   if (operand.length < 10) {
@@ -95,7 +103,11 @@ function getResult(operation, operand1, operand2) {
       result = operand1 * operand2;
       break;
     case "divide":
-      result = operand1 / operand2;
+      if (operand2 == "0") {
+        result = "error";
+      } else {
+        result = operand1 / operand2;
+      }
       break;
     case "percent":
       result = operand1 * (operand2 / 100);
@@ -107,6 +119,9 @@ function getResult(operation, operand1, operand2) {
 function constrainDisplayLength(result) {
   let output = result;
   let resultStr = `${result}`;
+  if (result == "error") {
+    return "MATH ERR.";
+  }
   if (resultStr.length > 11) {
     if (result > 9999999999) {
       output = result.toExponential(2);
