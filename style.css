@@ -137,7 +137,8 @@ h4 {
   background-color: #5c596d;
 }
 
-.number {
+.number,
+#decimal {
   background-color: #898995;
 }
 
@@ -150,10 +151,6 @@ h4 {
 #clear,
 #allClear {
   background-color: #bc7b93;
-}
-
-#decimal {
-  background-color: #898995;
 }
 
 #add {

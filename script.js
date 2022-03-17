@@ -4,13 +4,14 @@ const display = document.getElementById("display");
 const clear = document.getElementById("clear");
 const allClear = document.getElementById("allClear");
 const equals = document.getElementById("equals");
+const decimal = document.getElementById("decimal");
 
 let operand1 = "";
 let operand2 = "";
 let firstCalculation = true;
 let operation = "";
 
-display.textContent = "";
+display.textContent = "0";
 
 numberKeys.forEach((key) => {
   key.addEventListener("click", () => {
@@ -71,30 +72,31 @@ function fullClear() {
   operand2 = "";
   firstCalculation = true;
   operation = "";
-  display.textContent = "";
+  display.textContent = "0";
 }
 
 function partialClear() {
   operand2 = "";
-  display.textContent = "";
+  display.textContent = "0";
 }
 
 function limitInput(operand, key) {
   if (operand.length < 10) {
-    if (operand === "0") {
-      operand = key;
+    if (key == "decimal" && !operand.includes(".")) {
+      return operand + ".";
+    } else if (!(key == "decimal")) {
+      return operand + key;
     } else {
-      operand += key;
+      return operand;
     }
   }
-  return operand;
 }
 
 function getResult(operation, operand1, operand2) {
   let result;
   switch (operation) {
     case "add":
-      result = parseInt(operand1) + parseInt(operand2);
+      result = parseFloat(operand1) + parseFloat(operand2);
       break;
     case "subtract":
       result = operand1 - operand2;
@@ -127,7 +129,7 @@ function constrainDisplayLength(result) {
     if (result > 9999999999) {
       output = result.toExponential(2);
     } else {
-      output = result.toPrecision(9);
+      output = result.toPrecision(10);
     }
   }
   return output;
