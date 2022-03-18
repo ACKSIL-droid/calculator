@@ -133,7 +133,8 @@ h4 {
 }
 
 .operator,
-#equals {
+#equals,
+#plusMinus {
   background-color: #5c596d;
 }
 

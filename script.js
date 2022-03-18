@@ -1,10 +1,14 @@
+const display = document.getElementById("display");
+
 const numberKeys = document.querySelectorAll(".number");
 const operatorKeys = document.querySelectorAll(".operator");
-const display = document.getElementById("display");
+const memoryKeys = document.querySelectorAll(".memfunction");
+
 const clear = document.getElementById("clear");
 const allClear = document.getElementById("allClear");
 const equals = document.getElementById("equals");
 const decimal = document.getElementById("decimal");
+const plusMinus = document.getElementById("plusMinus");
 
 let operand1 = "";
 let operand2 = "";
@@ -58,6 +62,8 @@ equals.addEventListener("click", () => {
   }
   display.textContent = result;
 });
+
+//plusMinus.addEventListener("click", () => {});
 
 allClear.addEventListener("click", () => {
   fullClear();
@@ -123,7 +129,7 @@ function getResult(operation, operand1, operand2) {
 }
 
 function constrainDisplayLength(result) {
-  let output;
+  let output = result;
   let resultStr = `${result}`;
   if (resultStr.length > 10) {
     if (result > 9999999999) {
