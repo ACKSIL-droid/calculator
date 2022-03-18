@@ -16,7 +16,7 @@ display.textContent = "0";
 numberKeys.forEach((key) => {
   key.addEventListener("click", () => {
     let keyNumber = key.id;
-    let currentNumber = "0";
+    let currentNumber = "";
     if (firstCalculation) {
       currentNumber = limitInput(operand1, keyNumber);
       operand1 = currentNumber;
@@ -86,9 +86,9 @@ function limitInput(operand, key) {
       return operand + ".";
     } else if (!(key == "decimal")) {
       return operand + key;
-    } else {
-      return operand;
     }
+  } else {
+    return operand;
   }
 }
 
