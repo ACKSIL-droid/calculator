@@ -1,5 +1,5 @@
 const display = document.getElementById("display");
-const memoryStatus = document.getElementById("memStatus");
+const memoryDisplay = document.getElementById("memDisplay");
 
 const numberKeys = document.querySelectorAll(".number");
 const operatorKeys = document.querySelectorAll(".operator");
@@ -17,6 +17,8 @@ let operand2 = "";
 let operation = "";
 let firstCalculation = true;
 let rootOperand = false;
+let memoryHolder = "";
+let memoryStatus = false;
 
 display.textContent = "";
 
@@ -85,6 +87,13 @@ plusMinus.addEventListener("click", () => {
     operand2 = `${negativeNumber}`;
     display.textContent = operand2;
   }
+});
+
+memoryKeys.forEach((key) => {
+  key.addEventListener("click", () => {
+    let memoryFunction = key.id;
+    handleMemory(memoryFunction);
+  });
 });
 
 allClear.addEventListener("click", () => {
@@ -171,11 +180,39 @@ function constrainDisplayLength(result) {
   return output;
 }
 
+function handleMemory(memoryFunction) {
+  switch (memoryFunction) {
+    case "memPlus":
+      firstCalculation ? (memoryHolder = operand1) : (memoryHolder = operand2);
+      memoryDisplay.textContent = "M+";
+      memoryStatus = true;
+      break;
+    case "memMinus":
+      memoryHolder = "";
+      memoryDisplay.textContent = "";
+      memoryStatus = false;
+      break;
+    case "memRecall":
+      if (memoryStatus) {
+        if (firstCalculation) {
+          operand1 = memoryHolder;
+          display.textContent = operand1;
+        } else {
+          operand2 = memoryHolder;
+          display.textContent = operand2;
+        }
+      }
+      break;
+  }
+}
+
 function fullClear() {
   operand1 = "";
   operand2 = "";
-  firstCalculation = true;
   operation = "";
+  memoryHolder = "";
+  firstCalculation = true;
+  rootOperand = false;
   display.textContent = "";
 }
 
