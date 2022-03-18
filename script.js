@@ -39,12 +39,13 @@ operatorKeys.forEach((key) => {
   key.addEventListener("click", () => {
     let result = "";
     if (firstCalculation || operand2 == "") {
-      !rootOperand ? (result = operand1) : (result = findRoot(operand1));
+      rootOperand ? (result = findRoot(operand1)) : (result = operand1);
       firstCalculation = false;
       operation = key.id;
     } else {
-      result = `${getResult(operation, operand1, operand2)}`;
-      !rootOperand ? (result = operand2) : (result = findRoot(operand2));
+      rootOperand
+        ? (result = `${getResult(operation, operand1, findRoot(operand2))}`)
+        : (result = `${getResult(operation, operand1, operand2)}`);
       operation = key.id;
       operand1 = result;
       operand2 = "";
@@ -56,11 +57,11 @@ operatorKeys.forEach((key) => {
 equals.addEventListener("click", () => {
   let result = "";
   if (firstCalculation || operand2 == "") {
-    !rootOperand ? (result = operand1) : (result = findRoot(operand1));
+    rootOperand ? (result = findRoot(operand1)) : (result = operand1);
   } else {
-    !rootOperand
-      ? (result = `${getResult(operation, operand1, operand2)}`)
-      : (result = `${getResult(operation, operand1, findRoot(operand2))}`);
+    rootOperand
+      ? (result = `${getResult(operation, operand1, findRoot(operand2))}`)
+      : (result = `${getResult(operation, operand1, operand2)}`);
     operand1 = result;
     operand2 = "";
     firstCalculation = true;
@@ -142,10 +143,12 @@ function findRoot(operand) {
   let number = parseFloat(operand);
   let root = 0;
   if (number < 0) {
+    rootOperand = false;
     return operand;
   } else {
     root = Math.sqrt(number);
-    operand = `${root}`;
+    operand = `${root.toPrecision(9)}`;
+    rootOperand = false;
     return operand;
   }
 }
