@@ -8,12 +8,14 @@ const clear = document.getElementById("clear");
 const allClear = document.getElementById("allClear");
 const equals = document.getElementById("equals");
 const decimal = document.getElementById("decimal");
+const squareRoot = document.getElementById("sqRt");
 const plusMinus = document.getElementById("plusMinus");
 
 let operand1 = "";
 let operand2 = "";
-let firstCalculation = true;
 let operation = "";
+let firstCalculation = true;
+let rootOperand = false;
 
 display.textContent = "";
 
@@ -37,11 +39,12 @@ operatorKeys.forEach((key) => {
   key.addEventListener("click", () => {
     let result = "";
     if (firstCalculation || operand2 == "") {
-      result = operand1;
+      !rootOperand ? (result = operand1) : (result = findRoot(operand1));
       firstCalculation = false;
       operation = key.id;
     } else {
       result = `${getResult(operation, operand1, operand2)}`;
+      !rootOperand ? (result = operand2) : (result = findRoot(operand2));
       operation = key.id;
       operand1 = result;
       operand2 = "";
@@ -53,14 +56,20 @@ operatorKeys.forEach((key) => {
 equals.addEventListener("click", () => {
   let result = "";
   if (firstCalculation || operand2 == "") {
-    result = operand1;
+    !rootOperand ? (result = operand1) : (result = findRoot(operand1));
   } else {
-    result = `${getResult(operation, operand1, operand2)}`;
+    !rootOperand
+      ? (result = `${getResult(operation, operand1, operand2)}`)
+      : (result = `${getResult(operation, operand1, findRoot(operand2))}`);
     operand1 = result;
     operand2 = "";
     firstCalculation = true;
   }
   display.textContent = result;
+});
+
+squareRoot.addEventListener("click", () => {
+  rootOperand = true;
 });
 
 plusMinus.addEventListener("click", () => {
@@ -129,6 +138,18 @@ function getResult(operation, operand1, operand2) {
   }
 }
 
+function findRoot(operand) {
+  let number = parseFloat(operand);
+  let root = 0;
+  if (number < 0) {
+    return operand;
+  } else {
+    root = Math.sqrt(number);
+    operand = `${root}`;
+    return operand;
+  }
+}
+
 function constrainDisplayLength(result) {
   let output = result;
   let resultStr = `${result}`;
@@ -136,7 +157,7 @@ function constrainDisplayLength(result) {
     if (result > 9999999999) {
       output = result.toExponential(2);
     } else {
-      output = result.toPrecision(10);
+      output = result.toPrecision(9);
     }
   }
   return output;
