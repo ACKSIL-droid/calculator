@@ -1,4 +1,5 @@
 const display = document.getElementById("display");
+const memoryStatus = document.getElementById("memStatus");
 
 const numberKeys = document.querySelectorAll(".number");
 const operatorKeys = document.querySelectorAll(".operator");
@@ -24,11 +25,11 @@ numberKeys.forEach((key) => {
     let keyNumber = key.id;
     let currentNumber = "";
     if (firstCalculation) {
-      currentNumber = limitInput(operand1, keyNumber);
+      currentNumber = handleInput(operand1, keyNumber);
       operand1 = currentNumber;
       display.textContent = operand1;
     } else {
-      currentNumber = limitInput(operand2, keyNumber);
+      currentNumber = handleInput(operand2, keyNumber);
       operand2 = currentNumber;
       display.textContent = operand2;
     }
@@ -38,7 +39,7 @@ numberKeys.forEach((key) => {
 operatorKeys.forEach((key) => {
   key.addEventListener("click", () => {
     let result = "";
-    if (firstCalculation || operand2 == "") {
+    if (firstCalculation || operand2 === "") {
       rootOperand ? (result = findRoot(operand1)) : (result = operand1);
       firstCalculation = false;
       operation = key.id;
@@ -56,7 +57,7 @@ operatorKeys.forEach((key) => {
 
 equals.addEventListener("click", () => {
   let result = "";
-  if (firstCalculation || operand2 == "") {
+  if (firstCalculation || operand2 === "") {
     rootOperand ? (result = findRoot(operand1)) : (result = operand1);
   } else {
     rootOperand
@@ -75,11 +76,11 @@ squareRoot.addEventListener("click", () => {
 
 plusMinus.addEventListener("click", () => {
   let negativeNumber = 0;
-  if (firstCalculation && !(operand1 == "" || operand1 == "0")) {
+  if (firstCalculation && !(operand1 === "" || operand1 === "0")) {
     negativeNumber = parseFloat(operand1) * -1;
     operand1 = `${negativeNumber}`;
     display.textContent = operand1;
-  } else if (!(operand2 == "" || operand2 == "0")) {
+  } else if (!(operand2 === "" || operand2 === "0")) {
     negativeNumber = parseFloat(operand2) * -1;
     operand2 = `${negativeNumber}`;
     display.textContent = operand2;
@@ -94,18 +95,22 @@ clear.addEventListener("click", () => {
   partialClear();
 });
 
-function limitInput(operand, key) {
+function handleInput(operand, key) {
   if (operand.length < 10) {
-    if (key == "decimal" && !operand.includes(".")) {
-      return operand + ".";
-    } else if (operand == "0") {
+    if (key === "decimal") {
+      if (!operand.includes(".")) {
+        return operand + ".";
+      } else {
+        return operand;
+      }
+    } else if (operand === "0") {
       operand = key;
       return operand;
-    } else if (!(key == "decimal")) {
+    } else if (!(key === "decimal")) {
       return operand + key;
-    } else {
-      return operand;
     }
+  } else {
+    return operand;
   }
 }
 

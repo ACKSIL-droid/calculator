@@ -70,6 +70,7 @@ h4 {
 
 #screen {
   display: flex;
+  flex-direction: column;
   width: 380px;
   height: 120px;
   background-color: #9ba894;
@@ -83,27 +84,27 @@ h4 {
   font-family: DS Digital, monospace;
 }
 
+#memStatus {
+  font-size: 2rem;
+  padding: 8px 0 0 8px;
+  width: 32px;
+  height: 32px;
+  color: #1d221291;
+}
+
+#display {
+  font-size: 4.2rem;
+  text-align: right;
+  width: 372px;
+  color: #1d221291;
+}
+
 #keypad {
   display: flex;
   flex-flow: column wrap;
   align-content: center;
   height: 360px;
   padding: 4px;
-}
-
-#status {
-  font-size: 2rem;
-  padding: 16px 8px;
-  width: 32px;
-  color: #121310af;
-}
-
-#display {
-  font-size: 3.8rem;
-  text-align: right;
-  padding: 48px 0;
-  width: 320px;
-  color: #1213109f;
 }
 
 .key {
