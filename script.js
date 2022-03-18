@@ -15,7 +15,7 @@ let operand2 = "";
 let firstCalculation = true;
 let operation = "";
 
-display.textContent = "0";
+display.textContent = "";
 
 numberKeys.forEach((key) => {
   key.addEventListener("click", () => {
@@ -63,7 +63,18 @@ equals.addEventListener("click", () => {
   display.textContent = result;
 });
 
-//plusMinus.addEventListener("click", () => {});
+plusMinus.addEventListener("click", () => {
+  let negativeNumber = 0;
+  if (firstCalculation && !(operand1 == "" || operand1 == "0")) {
+    negativeNumber = parseFloat(operand1) * -1;
+    operand1 = `${negativeNumber}`;
+    display.textContent = operand1;
+  } else if (!(operand2 == "" || operand2 == "0")) {
+    negativeNumber = parseFloat(operand2) * -1;
+    operand2 = `${negativeNumber}`;
+    display.textContent = operand2;
+  }
+});
 
 allClear.addEventListener("click", () => {
   fullClear();
@@ -73,28 +84,18 @@ clear.addEventListener("click", () => {
   partialClear();
 });
 
-function fullClear() {
-  operand1 = "";
-  operand2 = "";
-  firstCalculation = true;
-  operation = "";
-  display.textContent = "0";
-}
-
-function partialClear() {
-  operand2 = "";
-  display.textContent = "0";
-}
-
 function limitInput(operand, key) {
   if (operand.length < 10) {
     if (key == "decimal" && !operand.includes(".")) {
       return operand + ".";
+    } else if (operand == "0") {
+      operand = key;
+      return operand;
     } else if (!(key == "decimal")) {
       return operand + key;
+    } else {
+      return operand;
     }
-  } else {
-    return operand;
   }
 }
 
@@ -139,4 +140,17 @@ function constrainDisplayLength(result) {
     }
   }
   return output;
+}
+
+function fullClear() {
+  operand1 = "";
+  operand2 = "";
+  firstCalculation = true;
+  operation = "";
+  display.textContent = "";
+}
+
+function partialClear() {
+  operand2 = "";
+  display.textContent = "0";
 }
