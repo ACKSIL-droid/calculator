@@ -23,14 +23,6 @@ let memoryStatus = false;
 
 display.textContent = "";
 
-allKeys.forEach((key) => {
-  key.addEventListener("click", () => {
-    display.classList.add("flicker");
-  });
-});
-
-display.addEventListener("transitionend", flicker);
-
 numberKeys.forEach((key) => {
   key.addEventListener("click", () => {
     let keyNumber = key.id;
@@ -113,25 +105,6 @@ clear.addEventListener("click", () => {
   partialClear();
 });
 
-function handleInput(operand, key) {
-  if (operand.length < 10) {
-    if (key === "decimal") {
-      if (!operand.includes(".")) {
-        return operand + ".";
-      } else {
-        return operand;
-      }
-    } else if (operand === "0") {
-      operand = key;
-      return operand;
-    } else if (!(key === "decimal")) {
-      return operand + key;
-    }
-  } else {
-    return operand;
-  }
-}
-
 function getResult(operation, operand1, operand2) {
   let result;
   switch (operation) {
@@ -176,6 +149,27 @@ function findRoot(operand) {
   }
 }
 
+//ensure that user input and result output do not exceed 10 places or one decimal
+
+function handleInput(operand, key) {
+  if (operand.length < 10) {
+    if (key === "decimal") {
+      if (!operand.includes(".")) {
+        return operand + ".";
+      } else {
+        return operand;
+      }
+    } else if (operand === "0") {
+      operand = key;
+      return operand;
+    } else if (!(key === "decimal")) {
+      return operand + key;
+    }
+  } else {
+    return operand;
+  }
+}
+
 function constrainDisplayLength(result) {
   let output = result;
   let resultStr = `${result}`;
@@ -188,6 +182,8 @@ function constrainDisplayLength(result) {
   }
   return output;
 }
+
+//memory and clear button behaviours
 
 function handleMemory(memoryFunction) {
   switch (memoryFunction) {
@@ -222,7 +218,7 @@ function fullClear() {
   memoryHolder = "";
   firstCalculation = true;
   rootOperand = false;
-  display.textContent = "";
+  display.textContent = "0";
 }
 
 function partialClear() {
@@ -230,7 +226,30 @@ function partialClear() {
   display.textContent = "0";
 }
 
+//screen flicker animation
+
+allKeys.forEach((key) => {
+  key.addEventListener("click", () => {
+    display.classList.add("flicker");
+    memDisplay.classList.add("flicker");
+  });
+});
+
+display.addEventListener("transitionend", flicker);
+memDisplay.addEventListener("transitionend", flicker);
+
 function flicker(e) {
   if (e.propertyName !== "opacity") return;
   e.target.classList.remove("flicker");
 }
+
+//numpad support
+
+allKeys.forEach((key) => {
+  key.addEventListener("keyup", function (e) {
+    let currentKey = `${String.fromCharCode(e.charCode)}`;
+    if (currentKey === key.id) {
+      key.click();
+    }
+  });
+});
