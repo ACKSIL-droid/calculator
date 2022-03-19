@@ -1,6 +1,7 @@
 const display = document.getElementById("display");
 const memoryDisplay = document.getElementById("memDisplay");
 
+const allKeys = document.querySelectorAll(".key");
 const numberKeys = document.querySelectorAll(".number");
 const operatorKeys = document.querySelectorAll(".operator");
 const memoryKeys = document.querySelectorAll(".memfunction");
@@ -21,6 +22,14 @@ let memoryHolder = "";
 let memoryStatus = false;
 
 display.textContent = "";
+
+allKeys.forEach((key) => {
+  key.addEventListener("click", () => {
+    display.classList.add("flicker");
+  });
+});
+
+display.addEventListener("transitionend", flicker);
 
 numberKeys.forEach((key) => {
   key.addEventListener("click", () => {
@@ -219,4 +228,9 @@ function fullClear() {
 function partialClear() {
   operand2 = "";
   display.textContent = "0";
+}
+
+function flicker(e) {
+  if (e.propertyName !== "opacity") return;
+  e.target.classList.remove("flicker");
 }
