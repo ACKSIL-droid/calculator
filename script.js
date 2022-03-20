@@ -243,13 +243,32 @@ function flicker(e) {
   e.target.classList.remove("flicker");
 }
 
-//numpad support
+//keyboard support
 
-allKeys.forEach((key) => {
-  key.addEventListener("keyup", function (e) {
-    let currentKey = `${String.fromCharCode(e.charCode)}`;
-    if (currentKey === key.id) {
-      key.click();
+document.addEventListener("keyup", function (e) {
+  let key = "";
+  let currentKeyPress = e.code.toLowerCase();
+  let regex = new RegExp("[0-9]");
+  const operators = [
+    "add",
+    "subtract",
+    "multiply",
+    "divide",
+    "decimal",
+    "enter",
+  ];
+  let containsOperator = (operator) => currentKeyPress.includes(operator);
+  if (regex.test(currentKeyPress)) {
+    key = currentKeyPress.charAt(currentKeyPress.length - 1);
+    document.getElementById(key).click();
+  }
+  if (operators.some(containsOperator)) {
+    key = currentKeyPress.slice(6);
+    if (key === "enter") {
+      document.getElementById("equals").click();
+    } else {
+      document.getElementById(key).click();
     }
-  });
+  }
+  console.log(currentKeyPress);
 });
